@@ -1,0 +1,57 @@
+﻿@model Product
+
+<div class="main-container">
+      <nav aria-label="breadcrumb" role="navigation" class="bg-primary text-white">
+        <div class="container">
+          <div class="row justify-content-center">
+            
+            <!--end of col-->
+          </div>
+          <!--end of row-->
+        </div>
+        <!--end of container-->
+      </nav>
+      <section class="bg-white space-sm">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-7 mb-4 mb-sm-0">
+                </br>
+                </br>
+              <img alt="Image" src="@Model.ProductImage" class="rounded img-fluid" />
+            </div>
+            <!--end of col-->
+            <div class="col-lg-4 d-flex flex-column justify-content-between mr-auto ml-auto">
+              <div>
+                <h1 class="mb-2">@Model.ProductName</h1>
+  
+              </div>
+              <div>
+                  <ul class="list-inline text-small d-inline-block mb-3">
+                    
+                    
+                    <li class="list-inline-item"><i class="icon-thumbs-up"></i>Description:@Model.ProductDescription</li> </br> 
+                    
+                  </ul>
+                @*<div class="btn-group mb-2">
+                  <button type="button" class="btn btn-success btn-lg">Announcement for sell</button>
+                  <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split dropdown-toggle-no-arrow" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="icon-dots-three-horizontal"></i>
+                    <span class="sr-only">Toggle Dropdown</span>
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-right dropdown-menu-sm">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Separated link</a>
+                  </div>
+                </div>*@
+              </div>
+            </div>
+            <!--end of col-->
+          </div>
+          <!--end of row-->
+        </div>
+        <!--end of container-->
+        </section>
+</div>

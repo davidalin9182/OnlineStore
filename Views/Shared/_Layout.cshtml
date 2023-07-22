@@ -1,0 +1,142 @@
+﻿    
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Proiect_IR</title>
+    <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/css/animate.css" />
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/line-awesome.css" />
+    <link rel="stylesheet" href="~/css/line-awesome-font-awesome.min.css" />
+    <link rel="stylesheet" href="~/css/vendor_font_awsome-free.css" />
+    <link rel="stylesheet" href="~/css/font-awsome.min.css" />
+    <link rel="stylesheet" href="~/css/jquery.mCustomScrollbar.min.css" />
+    <link rel="stylesheet" href="~/css/slick.css" />
+    <link rel="stylesheet" href="~/css/slick-theme.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/css/responsive.css" />
+    <link rel="stylesheet" href="~/Proiect_IR.styles.css" asp-append-version="true" />
+    @using Microsoft.AspNetCore.Identity
+    @using Proiect_IR.Models
+    @using Proiect_IR.ViewModels
+    @inject SignInManager<AppUser> SignInManager
+
+</head>
+<body>
+    <div class="main-layout-wrapper">
+
+    <header>
+        <div class="container">
+            <div class="header-data">
+                <div class="logo">
+                    <a href="index.html" title=""><img src="images/logo.png" alt=""></a>
+                </div>
+                <div class="search-bar">
+                   @* <form>
+                        <input type="text" name="search" placeholder="Search...">
+                        <button type="submit"><i class="la la-search"></i></button>
+                    </form>*@
+                </div>
+                <nav>
+                    <ul>
+                        <li class="nav-item"> <a class="nav-item " asp-area="" asp-controller="Product" asp-action="Index">Home</a></li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+
+
+                            <li class="nav-item"> <a class="nav-item  " asp-area="" asp-controller="Profile" asp-action="Cart">Cart</a></li>
+                            <li class="nav-item"> <a class="nav-item " asp-area="" asp-controller="Profile" asp-action="Index">@User.Identity.Name </a></li>
+                            <li class="nav-item"> <a class="nav-item " asp-area="" asp-controller="Account" asp-action="Logout">Logout</a></li>
+
+                        }
+                        else
+                        {
+                            <li class="nav-item"> <a class="nav-item " asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
+                        }
+                      
+
+                       
+
+                        <div class="user-account">
+                           
+                            <div class="user-account-settingss">
+                                <h3>Online Status</h3>
+                                <ul class="on-off-status">
+                                    <li>
+                                        <div class="fgt-sec">
+                                            <input type="radio" name="cc" id="c5">
+                                            <label for="c5">
+                                                <span></span>
+                                            </label>
+                                            <small>Online</small>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="fgt-sec">
+                                            <input type="radio" name="cc" id="c6">
+                                            <label for="c6">
+                                                <span></span>
+                                            </label>
+                                            <small>Offline</small>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <h3>Custom Status</h3>
+                                <div class="search_form">
+                                    <form>
+                                        <input type="text" name="search">
+                                        <button type="submit">Ok</button>
+                                    </form>
+                                </div>
+                                <h3>Setting</h3>
+                                <ul class="us-links">
+                                    <li><a href="profile-account-setting.html" title="">Account Setting</a></li>
+                                    <li><a href="#" title="">Privacy</a></li>
+                                    <li><a href="#" title="">Faqs</a></li>
+                                    <li><a href="#" title="">Terms & Conditions</a></li>
+                                </ul>
+                                <h3 class="tc"><a href="sign-in.html" title="">Logout</a></h3>
+                            </div>
+                        </div>
+            </div>
+        </div>
+
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="footy-sec mn no-margin">
+            <div class="container">
+                <ul>
+
+                    <li><a asp-area="" asp-controller="Product" asp-action="Index">Home</a></li>
+                    <li><a asp-area="" asp-controller="Profile" asp-action="Index">Profile</a></li>
+                    <li><a asp-area="" asp-controller="Profile" asp-action="Cart">Cart</a></li>
+
+                </ul>
+ 
+
+                
+
+
+
+
+
+            </div>
+        </div>
+    </footer>
+
+
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,223 @@
+﻿@using Proiect_IR.ViewModels
+@model IEnumerable<Product>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="UTF-8">
+    <title>FollowBook</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
+    
+
+
+
+</head>
+
+<body>
+    
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success">@TempData["Message"]</div>
+    }
+    <div class="wrapper">
+        @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+        {   
+            <div class="add-product-div">
+                <div class="add-product-post">
+                    <div class="user-picy">
+                        <img src="images/resources/user-pic.png" alt="">
+                    </div>
+
+                    <div class="post-st">
+                        <ul>
+                            <li>
+                                <a type="button" class="btn btn-sm btn-outline-info" asp-area="" asp-controller="Product" asp-action="Create">Add Product</a>
+
+                            </li>
+
+                        </ul>
+                    </div>
+
+
+                </div>
+             </div>
+    
+         
+         }
+        <div class="search-form-div">
+            <form asp-action="Index" method="get">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search..." name="searchTerm" id="searchInput">
+
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                    </div>
+
+                </div>
+            </form>
+            <div id="suggestions" class="search-suggestions" style="display: none;"></div>
+        </div>
+
+
+
+
+
+        <div class="category-nav">
+            <a href="#" onclick="selectCategory('')">All </a>
+            <a href="#" onclick="selectCategory('Sandwich')">Sandwich-uri și burgeri</a>
+            <a href="#" onclick="selectCategory('Pizza')">Pizza</a>
+            <a href="#" onclick="selectCategory('Shaorma')">Shaorma</a>
+            <a href="#" onclick="selectCategory('Aripioare de pui')">Aripioare de pui</a>
+            <a href="#" onclick="selectCategory('Paste ')">Paste</a>
+            <a href="#" onclick="selectCategory('Salate')">Salate</a>
+            <a href="#" onclick="selectCategory('Deserturi')">Deserturi</a>
+            <a href="#" onclick="selectCategory('Băuturi')">Băuturi răcoritoare</a>
+
+        </div>
+       
+    <section class="companies-info">
+
+        <div class="container">
+
+            
+                @if (!string.IsNullOrEmpty(ViewBag.SearchTerm))
+                {
+                    <h2 class="product-search-results">Search results for "@ViewBag.SearchTerm"</h2>
+                }
+            <div class="companies-list">
+                <div class="row">
+
+                        <script>
+                            function selectCategory(category) {
+                                var selectedCategory = document.getElementById("selectedCategory");
+                                selectedCategory.value = category;
+                                document.getElementById("categoryForm").submit();
+                            }
+                        </script>
+
+                        <form id="categoryForm" method="get">
+                            <input type="hidden" id="selectedCategory" name="category" value="@ViewBag.Category" />
+                        </form>
+
+
+                      
+                       
+
+
+
+                        @foreach (var item in Model)
+                        {
+                            
+                            
+                                <div class="col-lg-3 col-md-4 col-sm-6">
+                                    <div class="company_profile_info">
+                                        <div class="company-up-info">
+                                            <img src="@item.ProductImage" alt="">
+                                            <h3>@item.ProductName</h3>
+                                            <h3>@item.ProductPrice $</h3>
+                                            <p>@item.ProductDescription</p>
+                                           @*<p>@item.ProductCategory</p>*@
+                                            <ul class="skill-tags">
+                                                <li>
+                                                    <a type="button" class="btn btn-sm btn-outline-info" asp-controller="Profile" asp-action="AddToCart" asp-route-id="@item.Id"> Order </a>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                        @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                                        {
+                                            <ul class="skill-tags">
+                                                <li>
+                                                    <a type="button" class="btn btn-sm btn-outline-info" asp-controller="Product" asp-action="Edit" asp-route-id="@item.Id"> Edit </a>
+                                                </li>
+                                                <li>
+                                                    <a type="button" class="btn btn-sm btn-outline-info" asp-controller="Product" asp-action="Delete" asp-route-id="@item.Id"> Delete </a>
+                                                </li>
+                                            </ul>
+                                        }
+
+                                    </div>
+                                </div>
+                            
+
+                            
+                                
+                            
+
+                        }
+
+
+
+                
+             </div>
+ 
+        </div>
+        </div>
+    </section>
+
+    </div>
+   
+    <script type="text/javascript" src="js/popper.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/flatpickr.min.js"></script>
+    <script type="text/javascript" src="lib/slick/slick.min.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="js/jquery-3.6.4.js"></script>
+    <script>
+        $(document).ready(function () {
+            var searchTermInput = $('#searchInput');
+            var suggestionsDiv = $('#suggestions');
+
+            searchTermInput.on('input', function () {
+                var term = searchTermInput.val();
+                if (term.length >= 3) {
+                    var encodedTerm = encodeURIComponent(term); // Encode the search term
+
+                    $.ajax({
+                        type: 'GET',
+                        url: '/Product/TypeAhead',
+                        data: { term: encodedTerm }, // Use the encoded search term
+                        success: function (suggestions) {
+                            if (suggestions.length > 0) {
+                                suggestionsDiv.html('');
+                                suggestions.forEach(function (suggestion) {
+                                    var suggestionLink = $('<a href="#"></a>').text(suggestion);
+                                    suggestionLink.on('click', function (event) {
+                                        event.preventDefault();
+                                        searchTermInput.val(suggestion);
+                                        suggestionsDiv.hide();
+                                        $('#search-form').submit();
+                                    });
+                                    var suggestionItem = $('<div></div>').append(suggestionLink);
+                                    suggestionsDiv.append(suggestionItem);
+                                });
+                                suggestionsDiv.show();
+                            } else {
+                                suggestionsDiv.hide();
+                            }
+                        },
+                        error: function () {
+                            suggestionsDiv.hide();
+                        }
+                    });
+                } else {
+                    suggestionsDiv.hide();
+                }
+            });
+        });
+
+
+    </script>
+
+
+
+
+
+</body>
+</html>

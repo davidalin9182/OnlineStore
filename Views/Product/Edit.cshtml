@@ -1,0 +1,54 @@
+﻿@using Proiect_IR.ViewModels
+@model EditProductViewModel
+
+<form method="post" asp-action="Edit"  enctype="multipart/form-data">
+     <input type="hidden" id="AppUserId" name="AppUserId" asp-for="AppUserId"/>
+     <input type="hidden" id="ProfileImageUrl" name="ProfileImageUrl" asp-for="ProfileImageUrl"/>
+     <input type="hidden" id="UserName" name="UserName" asp-for="UserName"/>
+    <div class="form-group">
+        <label asp-for="ProductName">ProductName:</label>
+        <input asp-for="ProductName" class="form-control" placeholder="ProductName">
+        <span asp-validation-for="ProductName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ProductDescription">ProductDescription:</label>
+        <input asp-for="ProductDescription" class="form-control" placeholder="ProductDescription">
+        <span asp-validation-for="ProductDescription" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ProductPrice">ProductPrice:</label>
+        <input asp-for="ProductPrice" class="form-control" placeholder="ProductPrice">
+        <span asp-validation-for="ProductPrice" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ProductCategory">ProductCategory:</label>
+        <input asp-for="ProductCategory" class="form-control" placeholder="ProductCategory">
+        <span asp-validation-for="ProductCategory" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+            <label asp-for="ProductImage">ProductImage:</label>
+            <input asp-for="ProductImage" type="file" class="form-control" placeholder="ProductImage">
+            <span asp-validation-for="ProductImage" class="text-danger"></span>
+    </div>
+@*    <div class="form-group">
+        <label asp-for="Sauces">Sauces:</label>
+        <textarea asp-for="Sauces" class="form-control" placeholder="Enter product sauces..."></textarea>
+        <span asp-validation-for="Sauces" class="text danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Calories">Calories:</label>
+        <input asp-for="Calories" class="form-control" placeholder="Enter product calories...">
+        <span asp-validation-for="Calories" class="text danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Fat">Fat:</label>
+        <input asp-for="Fat" class="form-control" placeholder="Enter product fat...">
+        <span asp-validation-for="Fat" class="text danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Protein">Protein:</label>
+        <input asp-for="Protein" class="form-control" placeholder="Enter product protein...">
+        <span asp-validation-for="Protein" class="text danger"></span>
+    </div>*@
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

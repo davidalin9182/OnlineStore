@@ -1,0 +1,94 @@
+﻿@using Proiect_IR.ViewModels
+@model List<CartItemViewModel>
+<section class="companies-info3  companies-info">
+<div class="container">
+<h2>Cart</h2>
+   <script>
+    function increaseQuantity(productId) {
+        var quantityElement = document.getElementById("quantity-" + productId);
+        var subtotalElement = document.getElementById("subtotal-" + productId);
+        var currentQuantity = parseInt(quantityElement.innerText);
+        var newQuantity = currentQuantity + 1;
+        quantityElement.innerText = newQuantity;
+        subtotalElement.innerText = newQuantity * parseFloat(subtotalElement.innerText) / currentQuantity;
+
+        updateTotalPrice();
+    }
+
+    function decreaseQuantity(productId) {
+        var quantityElement = document.getElementById("quantity-" + productId);
+        var subtotalElement = document.getElementById("subtotal-" + productId);
+        var currentQuantity = parseInt(quantityElement.innerText);
+        if (currentQuantity > 1) {
+        var newQuantity = currentQuantity - 1;
+        quantityElement.innerText = newQuantity;
+        subtotalElement.innerText = newQuantity * parseFloat(subtotalElement.innerText) / currentQuantity;
+        }
+
+    updateTotalPrice();
+    }
+
+    function updateTotalPrice() {
+        var totalElement = document.getElementById("total-price");
+        var total = 0;
+        var subtotals = document.querySelectorAll("[id^='subtotal-']");
+        subtotals.forEach(function(subtotal) {
+            total += parseFloat(subtotal.innerText);
+        });
+        totalElement.innerText = total;
+    }
+        function removeItem(productId) {
+        var row = document.getElementById("row-" + productId);
+        row.parentNode.removeChild(row);
+    
+        updateTotalPrice();
+}
+
+
+    </script>
+@if (Model.Count == 0)
+{
+    <p>Your cart is empty.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+               
+            @foreach (var item in Model)
+            {
+                <tr id="row-@item.Product.Id">
+                    <td>@item.Product.ProductName</td>
+                    <td>@item.Product.ProductPrice</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-primary" onclick="decreaseQuantity(@item.Product.Id)">-</button>
+                        <span id="quantity-@item.Product.Id">@item.Quantity</span>
+                        <button type="button" class="btn btn-sm btn-primary" onclick="increaseQuantity(@item.Product.Id)">+</button>
+                        
+                    </td>
+                    <td>
+                        <span id="subtotal-@item.Product.Id">@(item.Product.ProductPrice * item.Quantity)</span>
+                    </td>
+                    <td>
+                                <button type="button" class="btn btn-sm btn-danger" onclick="removeItem(@item.Product.Id)">Remove</button>
+                    </td>
+                </tr>
+            }
+                    <tr>
+                        <td colspan="3"></td>
+                        <td>Total: <span id="total-price">@Model.Sum(item => item.Product.ProductPrice * item.Quantity)</span></td>
+                    </tr>
+        </tbody>
+    </table>
+}
+        <a type="button" class="btn btn-black" asp-controller="Profile" asp-action="CheckOut"> CheckOut </a>
+</div>
+</section>

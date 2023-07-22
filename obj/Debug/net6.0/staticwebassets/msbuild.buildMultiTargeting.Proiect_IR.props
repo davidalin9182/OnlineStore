@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Proiect_IR.props" />
+</Project>

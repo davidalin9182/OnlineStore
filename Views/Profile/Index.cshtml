@@ -1,0 +1,28 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Proiect_IR.Models
+@using Proiect_IR.ViewModels
+@inject SignInManager<AppUser> SignInManager
+@model ProfileViewModel
+
+
+<section class="companies-info2 companies-info">
+<div class="container">
+<form class="profile-form-1234" method="post" asp-action="EditUserProfile" enctype="multipart/form-data">
+    <input type="hidden" id="Id" name="Id" asp-for="Id" />
+    <div class="form-group">
+       
+        <img src="@Model.ProfileImageUrl" alt="">
+    </div>
+    <div class="form-group">
+            <label asp-for="UserName">Name:</label>   
+            <p>@Model.UserName</p>
+    </div>
+    <div class="form-group">
+        <label asp-for="Address">Address:</label>
+        <p>@Model.Address</p>
+    </div>   
+    <a type="button" class="btn btn-black" asp-area="" asp-controller="Profile" asp-action="EditUserProfile">Edit Profile</a>
+    
+</form>
+</div>
+</section>
